@@ -1,0 +1,26 @@
+body {
+  padding: 0.5rem;
+}
+button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: #1aa3e9;
+  color: white;
+  font-weight: bold;
+  padding: 8px 15px;
+  border-radius: 28px;
+  animation: pop 1s forwards;
+}
+button:hover {
+  box-shadow: 0px 2px 4px rgba(16, 21, 27, 0.104868);
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
