@@ -57,7 +57,6 @@ function same(el1, el2) {
     let first = el1.getBoundingClientRect();
     let second = el2.getBoundingClientRect();
     let state = first.top === second.top && first.left === second.left;
-    console.log(state);
     return state;
   }
   return true;
@@ -65,8 +64,22 @@ function same(el1, el2) {
 
 //handle copying element to clipboard
 function copy(e) {
-  copyToClipboard(curElement.outerHTML);
+  copyToClipboard(getHTML() + "\n" + getStyles());
   stop();
+}
+function getHTML() {
+  return curElement.outerHTML;
+}
+function getStyles() {
+  let styles = "<style>\n";
+
+  styles += css(curElement) + "\n";
+  var children = curElement.children;
+  for (let i = 0; i < children.length; i++) {
+    styles += css(children[i]) + "\n";
+  }
+  styles += "</style>";
+  return styles;
 }
 
 function copyToClipboard(str) {
@@ -79,4 +92,26 @@ function copyToClipboard(str) {
   el.select();
   document.execCommand("copy");
   document.body.removeChild(el);
+}
+
+//gets active style rules
+function css(a) {
+  let sheets = document.styleSheets,
+    o = [];
+  a.matches =
+    a.matches ||
+    a.webkitMatchesSelector ||
+    a.mozMatchesSelector ||
+    a.msMatchesSelector ||
+    a.oMatchesSelector;
+
+  for (var i in sheets) {
+    var rules = sheets[i].rules || sheets[i].cssRules;
+    for (var r in rules) {
+      if (a.matches(rules[r].selectorText)) {
+        o.push(rules[r].cssText);
+      }
+    }
+  }
+  return o.join("\n");
 }
