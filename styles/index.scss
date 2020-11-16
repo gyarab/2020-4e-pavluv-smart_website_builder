@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&display=swap");
+
 html,
 body {
   margin: 0;
@@ -6,6 +8,18 @@ body {
   width: 100%;
   overflow: hidden;
   box-sizing: border-box;
+  font-family: "Roboto Mono", monospace;
+
+  background: rgb(255, 213, 0);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 213, 0, 1) 0%,
+    rgba(253, 197, 0, 1) 100%
+  );
+}
+body > div,
+.page {
+  height: 100%;
 }
 
 @import "components/container.scss";
