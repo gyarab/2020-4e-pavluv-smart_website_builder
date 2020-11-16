@@ -9,7 +9,8 @@ body {
   overflow: hidden;
   box-sizing: border-box;
   font-family: "Roboto Mono", monospace;
-
+  font-weight: regular;
+  color: rgba(0, 0, 0, 0.9);
   background: rgb(255, 213, 0);
   background: linear-gradient(
     0deg,
@@ -23,3 +24,6 @@ body > div,
 }
 
 @import "components/container.scss";
+@import "components/editor.scss";
+@import "components/tab-options.scss";
+@import "components/section-manager.scss";
