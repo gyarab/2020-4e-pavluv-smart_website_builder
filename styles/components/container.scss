@@ -1,6 +1,10 @@
 #container {
   height: 95%;
   display: flex;
+  flex-wrap: wrap;
+  & > div {
+    min-width: 300px;
+  }
   .left {
     flex-grow: 1;
   }
