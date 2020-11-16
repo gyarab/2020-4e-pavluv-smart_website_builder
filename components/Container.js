@@ -13,10 +13,10 @@ function Container() {
 
       <div className="right">
         <div id="tab-options">
-          <a className={tab === 0 && "active"} onClick={() => setTab(0)}>
+          <a className={tab === 0 ? "active" : ""} onClick={() => setTab(0)}>
             Code
           </a>
-          <a className={tab === 1 && "active"} onClick={() => setTab(1)}>
+          <a className={tab === 1 ? "active" : ""} onClick={() => setTab(1)}>
             Preview
           </a>
         </div>
