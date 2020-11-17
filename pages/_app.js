@@ -1,5 +1,4 @@
 import "../styles/index.scss";
-
 function App({ Component, pageProps }) {
   return (
     <div className="page">
