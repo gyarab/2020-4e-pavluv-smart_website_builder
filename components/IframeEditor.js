@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import defaultHTML from "./defaultHTML";
+import defaultHTML from "../templates/defaultHTML";
 
 function IframeEditor() {
   useEffect(() => {

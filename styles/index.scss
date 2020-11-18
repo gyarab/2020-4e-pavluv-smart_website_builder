@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&display=swap");
-
+* {
+  box-sizing: border-box;
+}
 html,
 body {
   margin: 0;
@@ -7,7 +9,6 @@ body {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  box-sizing: border-box;
   font-family: "Roboto Mono", monospace;
   font-weight: regular;
   color: rgba(0, 0, 0, 0.9);
