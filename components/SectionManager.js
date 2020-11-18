@@ -10,7 +10,7 @@ const collection = [
   { name: "contact", list: contactList },
 ];
 
-function SectionManager() {
+function SectionManager({ tab, setTab }) {
   const [sections, setSections] = useState([
     { name: "navbar1", html: "html..." },
     { name: "contact2", html: "html..." },
@@ -21,10 +21,27 @@ function SectionManager() {
   function plusClick(number) {
     setPosition(number);
     setSelecting(true);
+    setTab(1);
   }
   function sectionSelect(name, html) {
     setSelecting(false);
-    //insert to a position
+    insertTo(0, html, name);
+  }
+  function moveUp(element) {
+    if (element.previousElementSibling)
+      element.parentNode.insertBefore(element, element.previousElementSibling);
+  }
+  function moveDown(element) {
+    if (element.nextElementSibling)
+      element.parentNode.insertBefore(element.nextElementSibling, element);
+  }
+  function insertTo(position, html, name) {
+    let iframeBody = document.getElementById("preview").contentDocument.body;
+    let section = document.createElement("section");
+    section.id = name;
+    section.innerHTML = html;
+
+    iframeBody.appendChild(section);
   }
 
   return (
@@ -69,6 +86,7 @@ function SectionManager() {
             <div className="panel">
               {category.list.map((section, i) => (
                 <img
+                  key={i}
                   src={section.img}
                   onClick={() => sectionSelect(category.name + i, section.html)}
                 />

@@ -1,17 +1,20 @@
+import { useState } from "react";
 import CodeEditor from "./CodeEditor";
 import SectionManager from "./SectionManager";
-import TabOptions from "./TabOptions";
+import TabManager from "./TabManager";
 import IframeEditor from "./IframeEditor";
 
 function Container() {
+  const [tab, setTab] = useState(1);
+
   return (
     <div id="container">
       <div className="left">
-        <SectionManager />
+        <SectionManager tab={tab} setTab={setTab} />
       </div>
 
       <div className="right">
-        <TabOptions />
+        <TabManager tab={tab} setTab={setTab} />
 
         <div id="editors">
           <CodeEditor />

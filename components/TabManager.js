@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import defaultHTML from "../templates/defaultHTML";
 
-function TabOptions() {
-  const [tab, setTab] = useState(1);
-
+function TabManager({ tab, setTab }) {
   useEffect(() => {
     let code = document.getElementById("code");
     let preview = document.getElementById("preview");
@@ -21,18 +20,20 @@ function TabOptions() {
   }, [tab]);
 
   function transferToIframe(preview) {
-    if (window.editor) {
-      let editorValue = window.editor.getSession().getValue();
-      var idoc = preview.contentWindow.document;
-      if (idoc) {
-        idoc.open();
-        idoc.write(editorValue);
-        idoc.close();
-      }
+    console.log("to frame");
+
+    let editorValue =
+      (window.editor && window.editor.getSession().getValue()) || defaultHTML;
+    let idoc = preview.contentWindow.document;
+    if (idoc) {
+      idoc.open();
+      idoc.write(editorValue);
+      idoc.close();
     }
   }
   function transferToCode(preview) {
     if (window.editor) {
+      console.log("to code");
       let iframeValue =
         preview.contentWindow.document.documentElement.innerHTML;
       window.editor.setValue(iframeValue, 1);
@@ -50,4 +51,4 @@ function TabOptions() {
     </div>
   );
 }
-export default TabOptions;
+export default TabManager;
