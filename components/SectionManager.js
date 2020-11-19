@@ -11,37 +11,81 @@ const collection = [
 ];
 
 function SectionManager({ tab, setTab }) {
-  const [sections, setSections] = useState([
-    { name: "navbar1", html: "html..." },
-    { name: "contact2", html: "html..." },
-  ]);
+  const [sections, setSections] = useState([]);
   const [selecting, setSelecting] = useState(false);
   const [position, setPosition] = useState(0);
 
+  useEffect(() => {
+    setSections(getSections());
+  }, [selecting]);
+
+  function getSections() {
+    let preview = document.getElementById("preview");
+    let sectionElements = preview.contentDocument.querySelectorAll(
+      "body > section"
+    );
+    let newSections = [];
+    sectionElements.forEach((item) => {
+      newSections.push({ name: item.id });
+    });
+    return newSections;
+  }
   function plusClick(number) {
     setPosition(number);
     setSelecting(true);
     setTab(1);
   }
+  function removeSection(id) {
+    //remove from iframe
+    let section = document
+      .getElementById("preview")
+      .contentDocument.getElementById(id);
+    section.remove();
+
+    //remove locally
+    setSections((prevSections) =>
+      prevSections.filter((item) => item.name !== id)
+    );
+  }
+  function getIframeSections() {
+    return document
+      .getElementById("preview")
+      .contentDocument.querySelectorAll("body > section");
+  }
   function sectionSelect(name, html) {
     setSelecting(false);
-    insertTo(0, html, name);
+    insertTo(html, name);
   }
-  function moveUp(element) {
-    if (element.previousElementSibling)
-      element.parentNode.insertBefore(element, element.previousElementSibling);
+  function moveUp(id, i) {
+    if (i > 0) {
+      let iframeBody = document.getElementById("preview").contentDocument.body;
+      let allSections = getIframeSections();
+      iframeBody.insertBefore(allSections[i], allSections[i - 1]);
+
+      setSections(getSections());
+    }
   }
-  function moveDown(element) {
-    if (element.nextElementSibling)
-      element.parentNode.insertBefore(element.nextElementSibling, element);
+  function moveDown(id, i) {
+    if (i < sections.length - 1) {
+      let iframeBody = document.getElementById("preview").contentDocument.body;
+      let allSections = getIframeSections();
+      iframeBody.insertBefore(allSections[i + 1], allSections[i]);
+
+      setSections(getSections());
+    }
   }
-  function insertTo(position, html, name) {
+  function insertTo(html, name) {
     let iframeBody = document.getElementById("preview").contentDocument.body;
     let section = document.createElement("section");
-    section.id = name;
+    section.id = name + Date.now();
     section.innerHTML = html;
 
-    iframeBody.appendChild(section);
+    let allSections = getIframeSections();
+    if (allSections.length === 0 || position > allSections.length) {
+      iframeBody.appendChild(section);
+    } else {
+      iframeBody.insertBefore(section, iframeBody.children[position + 1]);
+    }
   }
 
   return (
@@ -58,10 +102,22 @@ function SectionManager({ tab, setTab }) {
         {sections.map((item, i) => (
           <div key={i} className="section">
             <div>
-              <span>{item.name}</span>
-              <img className="up" src="images/arrow-up.svg" />
-              <img className="down" src="images/arrow-up.svg" />
-              <img className="delete" src="images/delete.svg" />
+              <span>{item.name.slice(0, item.name.indexOf("_"))}</span>
+              <img
+                className="up"
+                src="images/arrow-up.svg"
+                onClick={() => moveUp(item.name, i)}
+              />
+              <img
+                className="down"
+                src="images/arrow-up.svg"
+                onClick={() => moveDown(item.name, i)}
+              />
+              <img
+                className="delete"
+                src="images/delete.svg"
+                onClick={() => removeSection(item.name)}
+              />
             </div>
             <img
               className="plus"
@@ -88,7 +144,9 @@ function SectionManager({ tab, setTab }) {
                 <img
                   key={i}
                   src={section.img}
-                  onClick={() => sectionSelect(category.name + i, section.html)}
+                  onClick={() =>
+                    sectionSelect(category.name + "_", section.html)
+                  }
                 />
               ))}
             </div>

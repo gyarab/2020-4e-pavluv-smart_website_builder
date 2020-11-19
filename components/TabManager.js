@@ -20,8 +20,6 @@ function TabManager({ tab, setTab }) {
   }, [tab]);
 
   function transferToIframe(preview) {
-    console.log("to frame");
-
     let editorValue =
       (window.editor && window.editor.getSession().getValue()) || defaultHTML;
     let idoc = preview.contentWindow.document;
@@ -33,7 +31,6 @@ function TabManager({ tab, setTab }) {
   }
   function transferToCode(preview) {
     if (window.editor) {
-      console.log("to code");
       let iframeValue =
         preview.contentWindow.document.documentElement.innerHTML;
       window.editor.setValue(iframeValue, 1);
