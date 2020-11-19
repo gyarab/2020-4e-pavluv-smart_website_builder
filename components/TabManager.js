@@ -36,14 +36,40 @@ function TabManager({ tab, setTab }) {
       window.editor.setValue(iframeValue, 1);
     }
   }
+  function downloadClick() {
+    let content = "";
+    if (tab === 0) {
+      content = window.editor.getSession().getValue();
+    } else {
+      content = preview.contentWindow.document.documentElement.innerHTML;
+    }
+    download("website.html", content);
+  }
+  function download(filename, text) {
+    var element = document.createElement("a");
+    element.setAttribute(
+      "href",
+      "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+    );
+    element.setAttribute("download", filename);
+    element.style.display = "none";
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
 
   return (
     <div id="tab-options">
-      <a className={tab === 0 ? "active" : ""} onClick={() => setTab(0)}>
-        Code
-      </a>
-      <a className={tab === 1 ? "active" : ""} onClick={() => setTab(1)}>
-        Preview
+      <div className="options">
+        <a className={tab === 0 ? "active" : ""} onClick={() => setTab(0)}>
+          Code
+        </a>
+        <a className={tab === 1 ? "active" : ""} onClick={() => setTab(1)}>
+          Preview
+        </a>
+      </div>
+      <a className="download" onClick={downloadClick}>
+        download
       </a>
     </div>
   );
