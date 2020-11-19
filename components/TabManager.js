@@ -43,13 +43,13 @@ function TabManager({ tab, setTab }) {
     } else {
       content = preview.contentWindow.document.documentElement.innerHTML;
     }
-    download("website.html", content);
+    download("website.html", content.replace('contenteditable="true"', ""));
   }
   function download(filename, text) {
     var element = document.createElement("a");
     element.setAttribute(
       "href",
-      "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+      "data:text/html;charset=utf-8," + encodeURIComponent(text)
     );
     element.setAttribute("download", filename);
     element.style.display = "none";
