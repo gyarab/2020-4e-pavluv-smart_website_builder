@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 import navbarList from "../templates/navbarList";
 import footerList from "../templates/footerList";
@@ -36,16 +36,12 @@ function SectionManager({ tab, setTab }) {
     setTab(1);
   }
   function removeSection(id) {
-    //remove from iframe
     let section = document
       .getElementById("preview")
       .contentDocument.getElementById(id);
     section.remove();
-
-    //remove locally
-    setSections((prevSections) =>
-      prevSections.filter((item) => item.name !== id)
-    );
+    setSections(getSections());
+    transferToCode();
   }
   function getIframeSections() {
     return document
@@ -56,6 +52,13 @@ function SectionManager({ tab, setTab }) {
     setSelecting(false);
     insertTo(html, name);
   }
+  function transferToCode() {
+    if (window.editor) {
+      let iframeValue = document.getElementById("preview").contentWindow
+        .document.documentElement.innerHTML;
+      window.editor.setValue(iframeValue, 1);
+    }
+  }
   function moveUp(id, i) {
     if (i > 0) {
       let iframeBody = document.getElementById("preview").contentDocument.body;
@@ -63,6 +66,7 @@ function SectionManager({ tab, setTab }) {
       iframeBody.insertBefore(allSections[i], allSections[i - 1]);
 
       setSections(getSections());
+      transferToCode();
     }
   }
   function moveDown(id, i) {
@@ -72,6 +76,7 @@ function SectionManager({ tab, setTab }) {
       iframeBody.insertBefore(allSections[i + 1], allSections[i]);
 
       setSections(getSections());
+      transferToCode();
     }
   }
   function insertTo(html, name) {
