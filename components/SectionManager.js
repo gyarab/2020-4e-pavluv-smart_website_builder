@@ -2,12 +2,34 @@ import { useState, useEffect } from "react";
 
 import navbarList from "../templates/navbarList";
 import footerList from "../templates/footerList";
+import coversList from "../templates/coversList";
 import contactList from "../templates/contactList";
+import contentList from "../templates/contentList";
+import faqList from "../templates/faqList";
+import servicesList from "../templates/servicesList";
+import stepsList from "../templates/stepsList";
+import galleryList from "../templates/galleryList";
+import mapsList from "../templates/mapsList";
+import videoList from "../templates/videoList";
+import pricingList from "../templates/pricingList";
+import formsList from "../templates/formsList";
+import calltoactionList from "../templates/calltoactionList";
 
 const collection = [
   { name: "navbar", list: navbarList },
-  { name: "footer", list: footerList },
+  { name: "covers", list: coversList },
+  { name: "cta", list: calltoactionList },
+  { name: "content", list: contentList },
   { name: "contact", list: contactList },
+  { name: "forms", list: formsList },
+  { name: "gallery", list: galleryList },
+  { name: "video", list: videoList },
+  { name: "pricing", list: pricingList },
+  { name: "maps", list: mapsList },
+  { name: "services", list: servicesList },
+  { name: "faq", list: faqList },
+  { name: "steps", list: stepsList },
+  { name: "footer", list: footerList },
 ];
 
 function SectionManager({ tab, setTab }) {
