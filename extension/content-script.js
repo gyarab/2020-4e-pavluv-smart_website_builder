@@ -3,8 +3,6 @@ let picking = false;
 let prevElement = null;
 let curElement = null;
 
-start();
-
 //prepare and listen
 function start() {
   if (!picking) {
