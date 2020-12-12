@@ -7,16 +7,13 @@
   "icons": {
     "128": "./logo128.png"
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content-script.js"]
-    }
-  ],
-  "permissions": ["storage"],
+  "permissions": ["<all_urls>", "tabs"],
   "browser_action": {
     "default_icon": "./logo128.png",
     "default_title": "Block copier",
     "default_popup": "./popup.html"
+  },
+  "background": {
+    "scripts": ["background.js"]
   }
 }

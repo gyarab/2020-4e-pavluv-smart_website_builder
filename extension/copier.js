@@ -3,18 +3,13 @@ let picking = false;
 let prevElement = null;
 let curElement = null;
 
-//check for action
-browser.storage.onChanged.addListener((changes, area) => {
-  if (area == "local" && "picking" in changes) {
-    changes.picking.newValue ? start() : stop();
-  }
-});
+start();
 
 //prepare and listen
 function start() {
   if (!picking) {
     picking = true;
-    document.body.style.filter = "grayscale(0.5)";
+    document.body.style.filter = "grayscale(0.8)";
     document.addEventListener("mousemove", callback);
     document.addEventListener("click", copy);
   }
@@ -64,6 +59,7 @@ function same(el1, el2) {
 
 //handle copying element to clipboard
 function copy(e) {
+  e.preventDefault();
   copyToClipboard(getHTML() + "\n" + getStyles());
   stop();
 }
