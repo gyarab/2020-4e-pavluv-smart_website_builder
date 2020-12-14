@@ -59,7 +59,11 @@ function same(el1, el2) {
 function copy(e) {
   try {
     e.preventDefault();
-    copyToClipboard(getHTML() + "\n" + getStyles());
+    copyToClipboard(
+      getHTML().replace('style="border: 2px dashed rgb(247, 99, 0);"', "") +
+        "\n" +
+        getStyles()
+    );
     message("copied");
   } catch (e) {
     message("error", "#E23636");
