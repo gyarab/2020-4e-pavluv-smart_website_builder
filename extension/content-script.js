@@ -57,9 +57,33 @@ function same(el1, el2) {
 
 //handle copying element to clipboard
 function copy(e) {
-  e.preventDefault();
-  copyToClipboard(getHTML() + "\n" + getStyles());
+  try {
+    e.preventDefault();
+    copyToClipboard(getHTML() + "\n" + getStyles());
+    message("copied");
+  } catch (e) {
+    message("error", "#E23636");
+    console.error(e);
+  }
   stop();
+}
+
+function message(mess, color = "#4A90E2") {
+  let t = document.createElement("span");
+  t.textContent = mess;
+  t.style.position = "fixed";
+  t.style.top = "50%";
+  t.style.left = "50%";
+  t.style.transform = "translate(-50%,-50%)";
+  t.style.fontSize = "32px";
+  t.style.fontWeight = "bold";
+  t.style.color = color;
+  t.style.zIndex = "100";
+
+  document.body.appendChild(t);
+  setTimeout(() => {
+    t.remove();
+  }, 2000);
 }
 function getHTML() {
   return curElement.outerHTML;
