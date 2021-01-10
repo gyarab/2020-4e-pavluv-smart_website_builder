@@ -65,7 +65,7 @@ function TabManager({ tab, setTab }) {
           Code
         </a>
         <a className={tab === 1 ? "active" : ""} onClick={() => setTab(1)}>
-          Preview
+          Visual
         </a>
       </div>
       <a className="download" onClick={downloadClick}>
