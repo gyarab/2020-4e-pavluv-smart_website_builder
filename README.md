@@ -1,1 +1,6 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+Ročníková práce
+Aplikace na tvorbu webových stránek.
+
+https://smartwebsitebuilder.vercel.app/
+
+David Pavluv
