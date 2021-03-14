@@ -14,6 +14,17 @@
       margin: auto;
     }
   }
+  .manage-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    img {
+      height: 50px;
+      width: auto;
+      margin-right: 20px;
+    }
+  }
   .line {
     width: 3px;
     height: 30px;

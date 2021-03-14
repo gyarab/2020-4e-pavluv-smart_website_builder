@@ -117,7 +117,10 @@ function SectionManager({ tab, setTab }) {
 
   return (
     <div id="section-manager">
-      <h2>Manage your sections</h2>
+      <div className="manage-header">
+        <img src="/images/logo.svg" />
+        <h2>Manage your sections</h2>
+      </div>
       <div className="manager">
         <div className="line">
           <img

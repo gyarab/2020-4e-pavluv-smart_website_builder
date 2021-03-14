@@ -10,6 +10,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <link rel="icon" type="image/png" href="/images/favicon.png" />
           <script
             src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"
             integrity="sha512-GZ1RIgZaSc8rnco/8CXfRdCpDxRCphenIiZ2ztLy3XQfCbQUSCuk8IudvNHxkRA3oUg6q0qejgN/qqyG1duv5Q=="
