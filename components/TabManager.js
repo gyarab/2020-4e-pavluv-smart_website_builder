@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import defaultHTML from "../templates/defaultHTML";
 
+//handles top bar actions (tabs + download)
 function TabManager({ tab, setTab }) {
+  //handles tab selection (only active one (iframe/code) is visible)
   useEffect(() => {
     let code = document.getElementById("code");
     let preview = document.getElementById("preview");
@@ -19,6 +21,7 @@ function TabManager({ tab, setTab }) {
     }
   }, [tab]);
 
+  //transfers a content from the code to the iframe editor
   function transferToIframe(preview) {
     let editorValue =
       (window.editor && window.editor.getSession().getValue()) || defaultHTML;
@@ -29,6 +32,7 @@ function TabManager({ tab, setTab }) {
       idoc.close();
     }
   }
+  //transfers a content from the iframe to the code editor
   function transferToCode(preview) {
     if (window.editor) {
       let iframeValue =
@@ -36,6 +40,7 @@ function TabManager({ tab, setTab }) {
       window.editor.setValue(iframeValue, 1);
     }
   }
+  //handles downlaod click
   function downloadClick() {
     let content = "";
     if (tab === 0) {
@@ -45,6 +50,8 @@ function TabManager({ tab, setTab }) {
     }
     download("website.html", content.replace('contenteditable="true"', ""));
   }
+
+  //downlaod the created website
   function download(filename, text) {
     var element = document.createElement("a");
     element.setAttribute(

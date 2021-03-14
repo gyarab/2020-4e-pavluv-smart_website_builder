@@ -15,6 +15,7 @@ import pricingList from "../templates/pricingList";
 import formsList from "../templates/formsList";
 import calltoactionList from "../templates/calltoactionList";
 
+//array of imported templated sections
 const collection = [
   { name: "navbar", list: navbarList },
   { name: "covers", list: coversList },
@@ -32,15 +33,18 @@ const collection = [
   { name: "footer", list: footerList },
 ];
 
-function SectionManager({ tab, setTab }) {
+//handles manipulation of sections
+function SectionManager({ setTab }) {
   const [sections, setSections] = useState([]);
   const [selecting, setSelecting] = useState(false);
   const [position, setPosition] = useState(0);
 
+  //loads sections
   useEffect(() => {
     setSections(getSections());
   }, [selecting]);
 
+  //gets sections from preview (only direct children)
   function getSections() {
     let preview = document.getElementById("preview");
     let sectionElements = preview.contentDocument.querySelectorAll(
@@ -52,11 +56,13 @@ function SectionManager({ tab, setTab }) {
     });
     return newSections;
   }
+  //user starts selecting
   function plusClick(number) {
     setPosition(number);
     setSelecting(true);
     setTab(1);
   }
+  //removes section with specific id
   function removeSection(id) {
     let section = document
       .getElementById("preview")
@@ -65,15 +71,18 @@ function SectionManager({ tab, setTab }) {
     setSections(getSections());
     transferToCode();
   }
+  //gets all direct children from preview (iframe)
   function getIframeSections() {
     return document
       .getElementById("preview")
       .contentDocument.querySelectorAll("body > section");
   }
+  //after clicking on selected section integrate the template
   function sectionSelect(name, html) {
     setSelecting(false);
     insertTo(html, name);
   }
+  //transfers form iframe to code editor
   function transferToCode() {
     if (window.editor) {
       let iframeValue = document.getElementById("preview").contentWindow
@@ -81,6 +90,7 @@ function SectionManager({ tab, setTab }) {
       window.editor.setValue(iframeValue, 1);
     }
   }
+  //moves specific section up
   function moveUp(id, i) {
     if (i > 0) {
       let iframeBody = document.getElementById("preview").contentDocument.body;
@@ -91,6 +101,7 @@ function SectionManager({ tab, setTab }) {
       transferToCode();
     }
   }
+  //moves specific section down
   function moveDown(id, i) {
     if (i < sections.length - 1) {
       let iframeBody = document.getElementById("preview").contentDocument.body;
@@ -101,6 +112,8 @@ function SectionManager({ tab, setTab }) {
       transferToCode();
     }
   }
+
+  //apply specific section
   function insertTo(html, name) {
     let iframeBody = document.getElementById("preview").contentDocument.body;
     let section = document.createElement("section");
